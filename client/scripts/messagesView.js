@@ -9,7 +9,7 @@ var MessagesView = {
 
   render: function() {
 
-    MessagesView.$chats.html('');
+    //MessagesView.$chats.html('');
     Messages
       .items()
       .filter(message => Rooms.isSelected(message.roomname))

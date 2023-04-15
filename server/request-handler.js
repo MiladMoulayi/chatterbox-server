@@ -11,9 +11,8 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
-const stubs = require('./spec/Stubs');
 let messages = [];
-
+let message_id = 0;
 
 const requestHandler = function(req, res) {
   // Request and Response come from node's http module.
@@ -33,7 +32,7 @@ const requestHandler = function(req, res) {
   console.log('Serving request type ' + req.method + ' for url ' + req.url);
 
   // The outgoing status.
-  let statusCode;
+  let statusCode = 200;
 
   // See the note below about CORS headers.
   const headers = defaultCorsHeaders;
@@ -65,7 +64,11 @@ const requestHandler = function(req, res) {
           body += chunk.toString(); // convert Buffer to string
       });
       req.on('end', () => {
-          messages.push(JSON.parse(body));
+          body = JSON.parse(body);
+          body['message_id'] = message_id;
+          message_id++;
+          console.log('data on backend: ', body);
+          messages.push(body);
       });
     }
   } else {

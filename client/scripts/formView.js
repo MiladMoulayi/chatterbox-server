@@ -9,19 +9,20 @@ var FormView = {
   handleSubmit: function(event) {
     // Stop the browser from submitting the form
     event.preventDefault();
-    
+
 
     var message = {
       username: App.username,
       text: FormView.$form.find('#message').val(),
-      roomname: Rooms.selected || 'lobby'
+      roomname: Rooms.selected || 'lobby',
+      message_id: this.message_id,
     };
 
     Parse.create(message, (data) => {
       _.extend(message, data[0]);
       Messages.add(message, MessagesView.render);
     });
-      },
+  },
 
   setStatus: function(active) {
     var status = active ? 'true' : null;
