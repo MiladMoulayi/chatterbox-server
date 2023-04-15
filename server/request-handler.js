@@ -67,7 +67,6 @@ const requestHandler = function(req, res) {
           body = JSON.parse(body);
           body['message_id'] = message_id;
           message_id++;
-          console.log('data on backend: ', body);
           messages.push(body);
       });
     }
